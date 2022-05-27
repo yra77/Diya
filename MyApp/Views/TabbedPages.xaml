@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True"
+            xmlns:local="clr-namespace:MyApp.Views"
+            NavigationPage.HasNavigationBar="False"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.ToolbarPlacement="Bottom" 
+            android:TabbedPage.BarSelectedItemColor="White"
+            android:TabbedPage.IsSwipePagingEnabled="False"
+            BarBackgroundColor="{DynamicResource BackgroundColorDocument}"
+            SelectedTabColor="Black"
+            UnselectedTabColor="Black"
+             x:Class="MyApp.Views.TabbedPages">
+
+    <!--android:TabbedPage.BarSelectedItemColor="White"-->
+
+    <TabbedPage.Children>
+        <local:DocumentPage/>
+        <local:PoslugiPage/>
+        <local:PovidomlennyaPage/>
+        <local:MenuPage/>
+    </TabbedPage.Children>
+</TabbedPage>

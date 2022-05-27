@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True"
+             xmlns:view="clr-namespace:MyApp.Views.DocumentsPage"
+             xmlns:controls="clr-namespace:MyApp.Controls"
+             x:Name="Document"
+             Title="Документи"
+             IconImageSource="{Binding IconTab}"
+             BackgroundColor="{DynamicResource BackgroundColorDocument}"
+             x:Class="MyApp.Views.DocumentPage">
+
+
+    <ContentPage.Resources>
+
+        <!--To Documents -->
+        <ResourceDictionary>
+
+            <DataTemplate x:Key="Page0Template">
+                <view:DocumentPage1/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="Page1Template">
+                <view:DocumentPage2/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="Page2Template">
+                <view:DocumentPage3/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="Page3Template">
+                <view:DocumentPage4/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="Page4Template">
+                <view:DocumentPage5/>
+            </DataTemplate>
+
+            <controls:Selector_Documents_DataTemplate x:Key="CarouselSelector"
+                                            Page0="{StaticResource  Page0Template}"
+                                            Page1="{StaticResource  Page1Template}"
+                                            Page2="{StaticResource  Page2Template}" 
+                                            Page3="{StaticResource  Page3Template}"
+                                            Page4="{StaticResource  Page4Template}"/>
+
+        </ResourceDictionary>
+        <!--End To Documents -->
+
+    </ContentPage.Resources>
+
+
+    <ContentPage.Content>
+
+        <StackLayout>
+
+            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Fill"
+                         Padding="0, 0, 0, -15" BackgroundColor="{DynamicResource PoloskaVerx}">
+
+                <Frame HorizontalOptions="Start" Margin="0,15,0,0" CornerRadius="20" Scale="0.45" Padding="-0">
+                    
+                    <Image Source="diya1.png"/>
+                    
+                </Frame>
+
+                <Label x:Name="lab" Text="" VerticalOptions="Center" FontSize="21" TextColor="Black" FontAttributes="Bold"/>
+
+                <Frame Padding="0" BackgroundColor="Transparent" Scale="0.5" Margin="0,20,0,0" HorizontalOptions="EndAndExpand">
+                    
+                    <Button ImageSource="qr.png" BackgroundColor="Transparent" HeightRequest="-100"/>
+                    
+                </Frame>
+
+            </StackLayout>
+
+            
+            <Grid>
+
+                <Grid BackgroundColor="Transparent">
+
+                    <Label Text="Дані оновлено 28.11.2021 о 23:20" FontSize="12" TextColor="Black" 
+                           VerticalOptions="End" HorizontalOptions="Center" Margin="0,0,0,35"/>
+
+                    <CarouselView PeekAreaInsets="25" IsScrollAnimated="true" Loop="False" 
+                          BackgroundColor="Transparent" Position="{Binding IndexOfItem}"
+                          IndicatorView="indicator" ItemsSource="{Binding Carousel}" 
+                          ItemTemplate="{StaticResource CarouselSelector}"/>
+
+                </Grid>
+
+                
+                <!--Indicator for Carusel-->
+                <StackLayout VerticalOptions="EndAndExpand" IsVisible="{Binding IndicatorEnabled}" 
+                         HorizontalOptions="CenterAndExpand" Padding="{Binding IndicatorPadding}">
+                   
+                    <IndicatorView IndicatorColor="{DynamicResource BackgroundColorDocument}"
+                                  IndicatorsShape="Circle"
+                                  SelectedIndicatorColor="Black"
+                                  IndicatorSize="10"
+                                  HorizontalOptions="Center" 
+                                  VerticalOptions="End"
+                                  x:Name="indicator">
+                        <IndicatorView.IndicatorTemplate>
+                            
+                            <DataTemplate>
+                                
+                                <Frame HasShadow="False" Margin="0,0,0,10" CornerRadius="100" 
+                                       Padding="0" HeightRequest="10" WidthRequest="10">
+                                    
+                                    <Image Source="EmptyCircle.png"/>
+                                    
+                                </Frame>
+                                
+                            </DataTemplate>
+                            
+                        </IndicatorView.IndicatorTemplate>
+                    </IndicatorView>
+                    
+                </StackLayout>
+
+                
+                <!--Modal-->
+                <StackLayout IsVisible="{Binding ModalIsVisible}">
+                    
+                    <StackLayout VerticalOptions="EndAndExpand" BackgroundColor="White" Margin="30,0,30,30" Padding="0,30,0,0">
+                        
+                        <Label Text="Код для перевірки" TextColor="Black" HorizontalOptions="Center"/>
+                        
+                        <Line Margin="0,10,0,10" HorizontalOptions="CenterAndExpand" 
+                              Stroke="{DynamicResource ColorBrush_For_Line}" X2="250" StrokeThickness="2"/>
+                        
+                        <Label Text="Змінити порядок документів" TextColor="Black" HorizontalOptions="Center"/>
+                        
+                        <Line Margin="0,10,0,10" HorizontalOptions="CenterAndExpand" 
+                              Stroke="{DynamicResource ColorBrush_For_Line}" X2="250" StrokeThickness="2"/>
+                        
+                        <Label Text="Питання та відповіді" TextColor="Black" HorizontalOptions="Center"/>
+                        
+                        <Line Margin="0,10,0,10" HorizontalOptions="CenterAndExpand"
+                              Stroke="{DynamicResource ColorBrush_For_Line}" X2="250" StrokeThickness="2"/>
+                        
+                        <Button Text="X" FontSize="30" TextColor="{DynamicResource BackgroundColorDocument}" 
+                                BorderColor="Transparent" FontAttributes="Bold" Command="{Binding CloseModal}" 
+                                HorizontalOptions="Center" BorderRadius="100" BackgroundColor="Transparent"/>
+                        
+                    </StackLayout>
+                    
+                </StackLayout>
+                
+                <!--End Modal-->
+
+            </Grid>
+            
+        </StackLayout>
+        
+    </ContentPage.Content>
+</ContentPage>

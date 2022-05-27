@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyApp.Views.Themes.IdPassport">
+
+    <Color x:Key="BackgroundColorDocument">#AFC6E6</Color>
+    <Color x:Key="BackgroundColorDocumentCenter">#D8E4F4</Color>
+    <Color x:Key="Poloski">#C6D9E8</Color>
+    <Color x:Key="PoloskaVerx">#AFC6E6</Color>
+
+    <Color x:Key="PrimaryTextColor">White</Color>
+    <Color x:Key="SecondaryTextColor">Green</Color>
+    <Color x:Key="TertiaryTextColor">Gray</Color>
+    <Color x:Key="TransparentColor">Transparent</Color>
+    <Color x:Key="TabBar">#272927</Color>
+    <Color x:Key="ShadowContact">Gray</Color>
+    <Style x:Key="Title" TargetType="Label">
+        <Setter Property="TextColor" Value="Black"/>
+        <Setter Property="FontSize" Value="Large"/>
+    </Style>
+</ResourceDictionary>

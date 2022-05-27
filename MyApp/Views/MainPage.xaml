@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyApp.Views.MainPage"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             xmlns:prism1="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:local="clr-namespace:MyApp.Helpers" 
+             ios:Page.UseSafeArea="True" 
+             NavigationPage.HasNavigationBar="False"
+             
+             Title="ДІЯ"
+             BackgroundColor="#dae8f7">
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:SKPaintSurfaceEventArgsConverter x:Key="SKPaintSurfaceEventArgsConverter"/>
+            <local:SKTouchEventArgsConverter x:Key="SKTouchEventArgsConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+
+    <ContentPage.Content>
+
+        <Grid>
+            
+            <!--Registracia-->
+            <Grid BackgroundColor="White">
+                
+                <ScrollView VerticalOptions="Fill" Padding="20,50,20,0">
+                    
+                    <StackLayout Spacing="15">
+                        
+                        <Label HorizontalOptions="Center" Margin="0,0,0,20" Text="Введіть свої дані" 
+                               TextColor="Black" FontAttributes="Bold" FontSize="20"/>
+
+                        <Entry Text="{Binding FamiliaUkr}" Placeholder="Фамілія на українській мові" 
+                               xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference NameUkr}" CursorPosition="0"/>
+                        
+                        <Entry x:Name="NameUkr" Text="{Binding NameUkr}" Placeholder="Ім'я на українській мові"
+                               xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference OtchestvoUkr}"/>
+                        
+                        <Entry x:Name="OtchestvoUkr" Text="{Binding OtchestvoUkr}" Placeholder="По батькові на українській мові"
+                               xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference FamiliaEng}"/>
+                        
+                        <Entry x:Name="FamiliaEng" Text="{Binding FamiliaEng}" Placeholder="Фамілія на англійській мові"
+                               xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference NameEng}"/>
+                        
+                        <Entry x:Name="NameEng" Text="{Binding NameEng}" Placeholder="Ім'я на англійській мові"
+                               xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference DataBirthday}"/>
+                        
+                        <Entry x:Name="DataBirthday" Text="{Binding DataBirthday}" Placeholder="Дата народження 01.12.2021"/>
+
+                        <Label Text="Ваше Фото" Margin="0,40,0,0" HorizontalOptions="Center" FontSize="16"/>
+                        
+                        <Image BackgroundColor="Transparent" Margin="0,5,0,40" HorizontalOptions="Center" 
+                               Source="{Binding FotoPath}" Aspect="AspectFit">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Foto}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+
+                        <Button Command="{Binding Pidpis}" Margin="0,5,0,40" CornerRadius="15" 
+                                BackgroundColor="LimeGreen" Text="Ваш підпис" HorizontalOptions="Center"/>
+
+                        
+                        <StackLayout Orientation="Horizontal" Padding="20,0,20,70" HorizontalOptions="FillAndExpand">
+                            
+                            <Button Command="{Binding Cancel}" HorizontalOptions="StartAndExpand" CornerRadius="25" 
+                                        TextColor="White" FontAttributes="Bold" Text="Скасувати" FontSize="10" BackgroundColor="Red"/>
+                            
+                            <Button Command="{Binding Save}" HorizontalOptions="EndAndExpand" CornerRadius="25" 
+                                        TextColor="White" FontAttributes="Bold" Text="Зберегти" FontSize="10" BackgroundColor="Green"/>
+                            
+                        </StackLayout>
+                        
+                    </StackLayout>
+                    
+                </ScrollView>
+                
+            </Grid>
+            
+            <!--Painting to screen-->
+            <Grid BackgroundColor="White" IsVisible="{Binding IsPaint}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+                
+                <StackLayout  Grid.Row="0" BackgroundColor="Black"></StackLayout>
+                <StackLayout  Grid.Row="2" BackgroundColor="Black"></StackLayout>
+                
+                <skia:SKCanvasView x:Name="canvasView" Grid.Row="1" EnableTouchEvents ="True" Touch="OnTouch">
+                    <skia:SKCanvasView.Behaviors>
+                        
+                        <prism1:EventToCommandBehavior
+                                 EventName="PaintSurface"
+                                       Command="{Binding PaintSurfaceCommand}"
+                                          EventArgsConverter="{StaticResource SKPaintSurfaceEventArgsConverter}"/>
+                        <prism1:EventToCommandBehavior
+                                 EventName="Touch"
+                                       Command="{Binding OnTouch}"
+                                          EventArgsConverter="{StaticResource SKTouchEventArgsConverter}"/>
+                        
+                    </skia:SKCanvasView.Behaviors>
+                </skia:SKCanvasView>
+                
+                
+                <StackLayout Orientation="Horizontal" Margin="0,65,0,0" HorizontalOptions="Center" VerticalOptions="Start" Spacing="105">
+                    
+                    <Button Text="Save" TextColor="White" BackgroundColor="Green" CornerRadius="55" Command="{Binding ClosePaint}"/>
+                    
+                    <Button Text="Clear" TextColor="White" BackgroundColor="Green" CornerRadius="55" 
+                            Command="{Binding OnClear_Pidpis_Click}" Clicked="OnClearButtonClicked"/>
+                    
+                </StackLayout>
+                
+            </Grid>
+            
+        </Grid>
+     
+    </ContentPage.Content>
+</ContentPage>

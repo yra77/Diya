@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="True"
+             Title="Повідомлення"
+             IconImageSource="{Binding IconTab}"
+             BackgroundColor="{DynamicResource BackgroundColorDocument}"
+             x:Class="MyApp.Views.PovidomlennyaPage">
+    
+    
+    <ContentPage.Content>
+        
+        <StackLayout>
+            
+            
+            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Fill"
+                         Padding="0, 0, 0, -15" BackgroundColor="{DynamicResource PoloskaVerx}">
+
+                <Frame HorizontalOptions="Start" Margin="0,15,0,0" CornerRadius="20" Scale="0.45" Padding="-0">
+                    <Image Source="diya1.png"/>
+                </Frame>
+
+                <Label x:Name="lab" Text="Повідомлення" VerticalOptions="Center" 
+                        Margin="0,15,0,0" FontSize="18" TextColor="Black"/>
+
+                <Frame Padding="0" BackgroundColor="Transparent" Scale="0.5" Margin="0,20,0,0" HorizontalOptions="EndAndExpand">
+                    <Button ImageSource="qr.png" BackgroundColor="Transparent" HeightRequest="-100"/>
+                </Frame>
+
+            </StackLayout>
+
+
+            <Grid BackgroundColor="Transparent">
+                <ListView  x:Name="listView" HasUnevenRows="True" SeparatorColor="Transparent" ItemsSource="{Binding ListPovidomlennya}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell x:Name="Item">
+
+                                <Frame BackgroundColor="{DynamicResource BackgroundColorDocumentCenter}" Padding="0" 
+                                                   CornerRadius="8" Margin="9" HasShadow="False">
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*" />
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="3*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0" Padding="10,10,10,5">
+                                            <Image Source="{Binding imageHand}" HorizontalOptions="Start"/>
+                                            <Label Text="{Binding text1}" FontSize="13" Margin="25,0,0,0" HorizontalOptions="Start"/>
+                                            <Image Source="{Binding imageStrelka}" HorizontalOptions="End"/>
+                                        </Grid>
+                                        <Grid Grid.Row="1">
+                                            <Line Stroke="#dae8f7" X2="370" HorizontalOptions="CenterAndExpand" StrokeThickness="4"/>
+                                        </Grid>
+                                        <Grid Grid.Row="2" Padding="15,-10,0,0">
+                                            <Label VerticalOptions="StartAndExpand" HorizontalOptions="Start" 
+                                                               Text="{Binding text2}" FontSize="16" />
+                                        </Grid>
+                                    </Grid>
+
+                                </Frame>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+
+        </StackLayout>
+        
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True"
+             Title="Меню"
+             IconImageSource="{Binding IconTab}"
+             BackgroundColor="{DynamicResource BackgroundColorDocument}"
+             x:Class="MyApp.Views.MenuPage">
+    
+    <ContentPage.Content>
+        
+        <StackLayout>
+            
+            
+            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Fill"
+                         Padding="0, 0, 0, -15" BackgroundColor="{DynamicResource PoloskaVerx}">
+
+                <Frame HorizontalOptions="Start" Margin="0,15,0,0" CornerRadius="20" Scale="0.45" Padding="-0">
+                    <Image Source="diya1.png"/>
+                </Frame>
+
+                <Label x:Name="lab" Text="Вітаємо, Ім'я" VerticalOptions="Center" 
+                        Margin="0,15,0,0" FontSize="18" TextColor="Black"/>
+
+                <Frame Padding="0" BackgroundColor="Transparent" Scale="0.5" Margin="0,20,0,0" HorizontalOptions="EndAndExpand">
+                    <Button ImageSource="qr.png" BackgroundColor="Transparent" HeightRequest="-100"/>
+                </Frame>
+
+            </StackLayout>
+
+
+            <Grid>
+
+                <CollectionView
+                                    ItemsSource="{Binding MenuColection}"
+                                    SelectedItem="{Binding SelectOfMenu}"
+                                    BackgroundColor="Transparent"
+                                    SelectionMode="Single">
+
+
+                    <CollectionView.EmptyView>
+                        <StackLayout Padding="12">
+                            <Label HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Text="Поки що пункти меню відсутні" />
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+
+                            <StackLayout>
+
+                                <Grid Padding="25,0,0,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="55"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Grid.Column="0" VerticalOptions="Center" Source="{Binding image}" Scale="1.2"/>
+
+                                    <Label Grid.Column="1" Margin="10,0,0,0" HorizontalTextAlignment="Start" 
+                                                       VerticalOptions="Center" Text="{Binding name}" 
+                                                       TextColor="Black" FontSize="16"/>
+
+                                </Grid>
+
+                                <Line VerticalOptions="StartAndExpand" HorizontalOptions="Center" 
+                                                  Stroke="#C6D9E8" X2="300" StrokeThickness="4"/>
+
+                            </StackLayout>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </Grid>
+
+        </StackLayout>
+        
+    </ContentPage.Content>
+</ContentPage>

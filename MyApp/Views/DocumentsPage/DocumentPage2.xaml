@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyApp.Views.DocumentsPage.DocumentPage2"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:local="clr-namespace:MyApp.ViewModels" 
+             xmlns:tt="clr-namespace:MyApp.Effects" 
+    Scale="0.98" 
+      Padding="{Binding Source={RelativeSource AncestorType={x:Type local:DocumentViewModel}}, Path=ScreenHeight}">
+
+    
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="CommonStates1">
+            <VisualState x:Name="CurrentItem">
+                <VisualState.Setters>
+                    <Setter Property="Scale" Value="1.0" />
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="PreviousItem">
+                <VisualState.Setters>
+                    <Setter Property="Scale" Value="0.9" />
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="NextItem">
+                <VisualState.Setters>
+                    <Setter Property="Scale" Value="0.9" />
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="DefaultItem">
+                <VisualState.Setters>
+                    <Setter Property="Opacity" Value="0.25" />
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
+
+    <Frame Padding="0" HasShadow="False" xct:ShadowEffect.Color="LightGray" xct:ShadowEffect.OffsetX="10" CornerRadius="10" 
+                           BackgroundColor="{DynamicResource BackgroundColorDocumentCenter}" 
+                           tt:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:DocumentViewModel}}, 
+                                                    Path=TouchEvent, Mode=TwoWay}" 
+                           RotationY="{Binding Source={RelativeSource AncestorType={x:Type local:DocumentViewModel}}, Path=Rotate180}"
+                           Scale="{Binding Source={RelativeSource AncestorType={x:Type local:DocumentViewModel}}, Path=ScaleRotate}">
+        <Frame.Effects>
+            <tt:TouchEffect Capture="True"/>
+        </Frame.Effects>
+
+        <StackLayout RotationY="{Binding Source={RelativeSource AncestorType={x:Type local:DocumentViewModel}}, Path=Rotate180}">
+            <!-- First side -->
+            <Grid IsVisible="{Binding Source={RelativeSource AncestorType={x:Type local:DocumentViewModel}}, Path=Document1_IsEnabled_FirstSide}" 
+                                   Margin="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="12*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" TextColor="Black" FontSize="25" HorizontalOptions="Center" 
+                       Text="Vaccination certificate" VerticalOptions="Center"/>
+
+                <StackLayout Grid.Row="1" Margin="20" Spacing="1">
+                    <Label TextColor="Black" HorizontalOptions="Start" Text="certificate"/>
+                    <Label TextColor="Black" HorizontalOptions="Start" Text="until:          28.11.2022" />
+                    <Label TextColor="Black" HorizontalOptions="Start" Text="Vaccine:   Comirnaty"/>
+                </StackLayout>
+
+                <StackLayout Grid.Row="2" Margin="10,0,0,-20" HorizontalOptions="StartAndExpand" VerticalOptions="End">
+                    <Label TextColor="Black" FontSize="20" Text="{Binding familiaEng}"/>
+                    <Label TextColor="Black" FontSize="20" Text="{Binding nameEng}"/>
+                </StackLayout>
+
+                <Frame Grid.Row="2" Padding="0" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" 
+                                           BackgroundColor="Transparent" WidthRequest="35" HeightRequest="35">
+
+                    <Button Command="{Binding Source={RelativeSource AncestorType={x:Type local:DocumentViewModel}}, Path=ButtonSertificate}" 
+                            Text="---" FontSize="9.99" FontAttributes="Bold"
+                            BorderRadius="100" BackgroundColor="Transparent" BorderColor="Black" BorderWidth="2"/>
+                </Frame>
+
+            </Grid>
+
+            <!-- Second side -->
+            <StackLayout IsVisible="{Binding Source={RelativeSource AncestorType={x:Type local:DocumentViewModel}}, 
+                Path=Document1_IsEnabled_SecondSide}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                
+                <Image Source="qrCode.png" Scale="1.2" VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="CenterAndExpand" Margin="10,0,0,0"/>
+                
+            </StackLayout>
+
+        </StackLayout>
+    </Frame>
+
+</Grid>

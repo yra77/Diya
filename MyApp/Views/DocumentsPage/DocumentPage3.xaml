@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyApp.Views.DocumentsPage.DocumentPage3"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:local="clr-namespace:MyApp.ViewModels"  
+             xmlns:tt="clr-namespace:MyApp.Effects"
+     Scale="0.98" 
+     Padding="{Binding Source={RelativeSource AncestorType={x:Type local:DocumentViewModel}}, Path=ScreenHeight}">
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CommonStates2">
+                <VisualState x:Name="CurrentItem">
+                    <VisualState.Setters>
+                        <Setter Property="Scale" Value="1" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="PreviousItem">
+                    <VisualState.Setters>
+                        <Setter Property="Scale" Value="0.9" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NextItem">
+                    <VisualState.Setters>
+                        <Setter Property="Scale" Value="0.9" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="DefaultItem">
+                    <VisualState.Setters>
+                        <Setter Property="Opacity" Value="0.25" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Frame Padding="0" HasShadow="False" xct:ShadowEffect.Color="LightGray" xct:ShadowEffect.OffsetX="10" CornerRadius="10" 
+                           BackgroundColor="{DynamicResource BackgroundColorDocumentCenter}" 
+                           tt:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:DocumentViewModel}}, Path=TouchEvent, Mode=TwoWay}" 
+                           RotationY="{Binding Source={RelativeSource AncestorType={x:Type local:DocumentViewModel}}, Path=Rotate180}"
+                           Scale="{Binding Source={RelativeSource AncestorType={x:Type local:DocumentViewModel}}, Path=ScaleRotate}">
+            <Frame.Effects>
+                <tt:TouchEffect Capture="True"/>
+            </Frame.Effects>
+
+        <StackLayout RotationY="{Binding Source={RelativeSource AncestorType={x:Type local:DocumentViewModel}}, Path=Rotate180}">
+
+                <!-- First side -->
+            <Grid IsVisible="{Binding Source={RelativeSource AncestorType={x:Type local:DocumentViewModel}}, Path=Document1_IsEnabled_FirstSide}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="6*" />
+                        <RowDefinition Height="3*" />
+                    </Grid.RowDefinitions>
+
+                    <StackLayout Grid.Row="0" Spacing="0" HorizontalOptions="Start" Margin="35,25,18,0">
+                        <Label Text="Закордонний" TextColor="Black" FontAttributes="None" FontSize="23"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="паспорт" TextColor="Black" FontAttributes="None" FontSize="23"/>
+                            <Image Source="trezub.png" Scale="0.8" Margin="-8,-15,0,-20"/>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1" Orientation="Horizontal" Margin="40,5,0,0">
+                        <Frame Grid.ColumnSpan="3" Padding="0" BorderColor="{DynamicResource BackgroundColorDocument}" HorizontalOptions="Start" 
+                                           VerticalOptions="Center" ScaleY="1.15" ScaleX="1.15" HasShadow="False">
+
+                            <Image Source="{Binding imagePath}" Scale="0.99" Aspect="Fill"></Image>
+
+                        </Frame>
+
+                        <StackLayout Grid.ColumnSpan="2" Margin="20,15,0,0" Orientation="Vertical" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Spacing="0">
+                            <Label Text="Дата" TextColor="Black" FontSize="14"/>
+                            <Label Text="народження:" TextColor="Black" FontSize="14"/>
+                            <Label Text="{Binding dataBirthday}" Margin="0,0,0,5" FontSize="14"/>
+                            <Label Text="номер:" TextColor="Black" FontSize="14"/>
+                            <Label Text="FF22GG44" Margin="0,0,0,15" FontSize="14"/>
+                            <Image Source="{Binding pidpis}" Scale="0.5" Margin="-20"/>
+
+                            <!--<Label Text="Фото підпис" TextColor="Black" FontSize="14"/>-->
+                        </StackLayout>
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="2" VerticalOptions="StartAndExpand" Margin="0,0,0,10">
+                        <Line Stroke="#74B4D8" HorizontalOptions="CenterAndExpand" 
+                                            VerticalOptions="StartAndExpand" X2="280" StrokeThickness="4"/>
+                        <StackLayout Margin="35,0,0,0" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" Spacing="2">
+                            <Label Text="{Binding familia}" TextColor="Black" FontSize="20"/>
+                            <Label Text="{Binding name}" TextColor="Black" FontSize="20"/>
+                            <Label Text="{Binding otchestvo}" TextColor="Black" FontSize="20"/>
+                        </StackLayout>
+                    </StackLayout>
+
+                <Frame Grid.Row="2" Padding="0" Margin="0,0,20,60" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" 
+                                           BackgroundColor="Transparent" WidthRequest="35" HeightRequest="35">
+
+                    <Button Command="{Binding Source={RelativeSource AncestorType={x:Type local:DocumentViewModel}}, Path=ButtonSertificate}" 
+                            Text="---" FontSize="9.99" FontAttributes="Bold"
+                            BorderRadius="100" BackgroundColor="Transparent" BorderColor="Black" BorderWidth="2"/>
+                </Frame>
+
+            </Grid>
+
+                <!-- Second side -->
+            <StackLayout IsVisible="{Binding Source={RelativeSource AncestorType={x:Type local:DocumentViewModel}}, 
+                Path=Document1_IsEnabled_SecondSide}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                
+                    <Image Source="qrCode.png" Scale="1.2" VerticalOptions="CenterAndExpand" 
+                           HorizontalOptions="CenterAndExpand" Margin="10,0,0,0"/>
+                
+                </StackLayout>
+
+            </StackLayout>
+            
+        </Frame>
+       
+    </Grid>
